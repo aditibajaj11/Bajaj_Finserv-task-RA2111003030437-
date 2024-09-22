@@ -22,7 +22,7 @@ const ApiForm = () => {
       const parsedData = JSON.parse(inputData);
 
       // Make API request
-      const result = await axios.post('http://localhost:3000/bfhl', parsedData);
+      const result = await axios.post('https://backend-kh22zi36k-aditi-bajajs-projects.vercel.app/bfhl', parsedData);
       setResponse(result.data);
     } catch (error) {
       console.error('Error:', error);
