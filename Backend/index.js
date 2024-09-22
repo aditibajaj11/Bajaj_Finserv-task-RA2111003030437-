@@ -9,10 +9,21 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
+// GET route for root
+app.get('/', (req, res) => {
+    res.send('Welcome to the backend!');
+});
+
 // Helper function to find the highest alphabet
 const findHighestAlphabet = (alphabets) => {
     if (alphabets.length === 0) return [];
     return [alphabets.sort((a, b) => a.toLowerCase() > b.toLowerCase() ? -1 : 1)[0]];
+};
+
+// Helper function to generate user_id
+const generateUserId = (firstName, lastName, dob) => {
+    const formattedDob = dob.split('-').reverse().join('');  // Format to ddmmyyyy
+    return `${firstName.toLowerCase()}_${lastName.toLowerCase()}_${formattedDob}`;
 };
 
 // POST route
@@ -32,12 +43,15 @@ app.post('/bfhl', (req, res) => {
         // Find the highest alphabet
         const highest_alphabet = findHighestAlphabet(alphabets);
 
+        // Generate user_id
+        const user_id = generateUserId('aditi', 'bajaj', '02-08-2024'); // Replace with actual values
+
         // Construct response
         const response = {
             is_success: true,
-            user_id: "aditi_bajaj_02082024", // Replace with your user_id format
-            email: "aditi.bajaj@college.edu", // Replace with your email
-            roll_number: "123456", // Replace with your roll number
+            user_id,  // Generated user_id
+            email: "ab4860@srmist.edu.in", // Replace with your email
+            roll_number: "RA2111003030437", // Replace with your roll number
             numbers,
             alphabets,
             highest_alphabet
@@ -58,3 +72,4 @@ app.get('/bfhl', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
